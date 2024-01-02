@@ -90,9 +90,11 @@ module.exports = {
 
       webdriver: {
         start_process: true,
+        keep_alive: {
+          enabled: true,
+          keepAliveMsecs: 3000,
+        },
         server_path: "",
-        port: 9515,
-        cli_args: ["--port=9515"],
       },
     },
 
