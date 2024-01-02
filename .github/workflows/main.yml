@@ -1,0 +1,33 @@
+name: Nightwatch.js Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Nightwatch.js Tests
+      run: npm test
+    - name: Upload Nightwatch.js HTML Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: nightwatch-html-report
+        path: tests_output/nightwatch-html-report/index.html
