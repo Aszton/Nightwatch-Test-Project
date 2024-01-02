@@ -24,8 +24,22 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
+    - name: Install Google Chrome
+      run: |
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo dpkg -i google-chrome-stable_current_amd64.deb
+        sudo apt-get -f install
+
+    - name: Install ChromeDriver
+      run: |
+        wget https://chromedriver.storage.googleapis.com/$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/bin/
+        sudo chmod +x /usr/bin/chromedriver
+
     - name: Run Nightwatch.js Tests
       run: npm test
+
     - name: Upload Nightwatch.js HTML Report
       uses: actions/upload-artifact@v2
       with:
